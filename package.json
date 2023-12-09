@@ -1,0 +1,40 @@
+{
+  "name": "style-guide",
+  "version": "0.0.1",
+  "description": "Style guide saya pribadi untuk memudahkan dalam menulis kode sehingga lebih rapi dan punya gaya penulisan yang konsisten",
+  "scripts": {
+    "dev": "next dev",
+    "dev:mac": "PORT=8080 next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liu-purnomo/style-guide.git"
+  },
+  "author": "Liu Purnomo <hi@liupurnomo.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/liu-purnomo/style-guide/issues"
+  },
+  "homepage": "https://github.com/liu-purnomo/style-guide#readme",
+  "dependencies": {
+    "@vercel/og": "^0.5.0",
+    "clsx": "^2.0.0",
+    "framer-motion": "^10.0.0",
+    "next": "^13.0.6",
+    "nextra": "latest",
+    "nextra-theme-docs": "latest",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sharp": "^0.32.5"
+  },
+  "devDependencies": {
+    "@svgr/webpack": "^8.0.1",
+    "@types/node": "18.11.10",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5",
+    "typescript": "^4.9.3"
+  }
+}

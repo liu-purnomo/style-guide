@@ -1,0 +1,53 @@
+
+# Tipe Data
+
+## Primitive
+
+import { Callout } from 'nextra-theme-docs'
+
+<Callout type='info' emoji="💡">
+  Tipe data primitive adalah tipe data yang bisa diakses secara langsung pada nilai yang dimilikinya.
+</Callout>
+
+- `string`
+- `number`
+- `boolean`
+- `null`
+- `undefined`
+- `symbol`
+- `bigint`
+
+
+```javascript
+const foo = 1;
+let bar = foo;
+
+bar = 9;
+
+console.log(foo, bar); // => 1, 9
+```
+
+<Callout type='warning' emoji="💡">
+  `Symbols` dan `BigInts` tidak dapat dipolyfill, sehingga tidak boleh digunakan saat menargetkan browser / lingkungan yang tidak mendukungnya secara native.
+</Callout>
+
+## Complex
+
+<Callout type='info' emoji="💡">
+  Tipe data complex adalah tipe data yang tidak bisa diakses secara langsung pada nilai yang dimilikinya. Kita hanya bisa mengaksesnya melalui referensi.
+</Callout>
+
+
+- `object`
+- `array`
+- `function`
+
+
+```javascript
+const foo = [1, 2];
+const bar = foo;
+
+bar[0] = 9;
+
+console.log(foo[0], bar[0]); // => 9, 9
+```
