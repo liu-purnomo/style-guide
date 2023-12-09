@@ -1,0 +1,59 @@
+# Deklarasi Variabel
+
+## `const`
+
+import { Callout } from 'nextra-theme-docs'
+
+<Callout type='info' emoji="💡">
+  Gunakan `const` untuk mendeklarasikan variabel yang nilainya tidak akan berubah.
+</Callout>
+
+Utamakan penggunaan `const` untuk mendeklarasikan variabel. Hal ini untuk menghindari terjadinya perubahan nilai variabel yang tidak diinginkan.
+
+Lihat panduan dari eslint [`prefer-const`](https://eslint.org/docs/rules/prefer-const), [`no-const-assign`](https://eslint.org/docs/rules/no-const-assign)
+
+```js filename="constExample.js"
+// jangan lakukan ini
+var firstNumber = 1;
+var secondNumber = 2;
+
+// lakukan ini
+const firstNumber = 1;
+const secondNumber = 2;
+```
+
+## `let`
+
+<Callout type='info' emoji="💡">
+  Gunakan `let` untuk mendeklarasikan variabel yang nilainya akan berubah.
+</Callout>
+
+```js filename="letExample.js"
+let count = 1;
+if (true) {
+  count += 1;
+}
+```
+
+<Callout type='info' emoji="💡">
+  `Let` memiliki scope yang lebih ketat dibandingkan dengan `var`.
+</Callout>
+
+## Hindari `var`
+
+`var` adalah kata kunci yang digunakan untuk mendeklarasikan variabel. Variabel yang dideklarasikan dengan `var` tidak memiliki batasan scope, sehingga dapat diakses dari mana saja. Hal ini dapat menyebabkan terjadinya perubahan nilai variabel yang tidak diinginkan.
+
+Hindari penggunaan `var` untuk mendeklarasikan variabel.
+
+```js filename="varExample.js"
+{
+  let a = 1;
+  const b = 1;
+  var c = 1;
+}
+console.log(a); // ReferenceError
+console.log(b); // ReferenceError
+console.log(c); // Prints 1
+```
+
+Pada kode di atas, variabel `a` dan `b` tidak dapat diakses di luar blok kode `{}`. Sedangkan variabel `c` dapat diakses di luar blok kode `{}`.

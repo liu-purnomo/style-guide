@@ -1,0 +1,93 @@
+# String
+
+import { Callout } from 'nextra-theme-docs'
+
+<Callout type='info' emoji="💡">
+  Tipe data string adalah tipe data yang berisi karakter atau teks.
+</Callout>
+
+## Gunakan petik tunggal `''`
+
+```js filename="string.js"
+//bad
+const name = "Mr. Liu"
+
+//bad
+const name = `Mr. Liu`
+
+//good
+const name = 'Mr. Liu'
+```
+
+## Batasi karakter dalam satu baris
+
+<Callout type='info' emoji="💡">
+    Jika string terlalu panjang, batasi karakter dalam satu baris.
+</Callout>
+
+```js filename="string.js"
+// bad
+const errorMessage = 'This is a super long error that was thrown because \
+of Batman. When you stop to think about how Batman had anything to do \
+with this, you would get nowhere \
+fast.';
+
+// bad
+const errorMessage = 'This is a super long error that was thrown because ' +
+  'of Batman. When you stop to think about how Batman had anything to do ' +
+  'with this, you would get nowhere fast.';
+
+// good
+const errorMessage = 'This is a super long error that was thrown because of Batman. When you stop to think about how Batman had anything to do with this, you would get nowhere fast.';
+```
+
+## Template literals ``
+
+<Callout type='info' emoji="💡">
+    Gunakan template literals untuk gabungan string dan variabel.
+</Callout>
+
+```js filename="string.js"
+// bad
+const sayHello = (name) => {
+    return 'How are you, ' + name + '?';
+}
+
+// bad
+const sayHello = (name) => {
+    return ['How are you, ', name, '?'].join();
+}
+
+// bad
+const sayHello = (name) => {
+    return `How are you, ${ name }?`;
+}
+
+// good
+const sayHello = (name) => {
+    `How are you, ${name}?`;
+}
+
+// best
+const sayHello = name => `How are you, ${name}?`;
+```
+
+## Jangan gunakan `eval()` untuk mengurai string
+
+`eval()` adalah fungsi bawaan JavaScript yang digunakan untuk menjalankan kode JavaScript yang disediakan sebagai string. Ini berpotensi membuka celah keamanan dan kinerja yang buruk.
+
+[Rules](https://eslint.org/docs/rules/no-eval)
+
+## Jangan gunakan escape karakter untuk string
+
+<Callout type='info' emoji="💡">
+    Jangan gunakan escape karakter untuk string.
+</Callout>
+
+Penggunaan escape karakter dapat membuat kode sulit dibaca, sulit dipelihara, dan rentan terhadap kesalahan.
+
+```js filename="string.js"
+let foo = 'hol\a'; // > foo = "hola"
+let bar = `${foo}\!`; // > bar = "hola!"
+let baz = /\:/ // same functionality with /:/
+```

@@ -1,0 +1,60 @@
+# Destructuring
+
+Lakukan desctructering agar kode lebih efisien dan mudah dibaca.
+
+[prefer-destructuring](https://eslint.org/docs/rules/prefer-destructuring)
+
+## Destructuring Object
+
+```js filename="arraySpread.js"
+//bad
+const getFullName = (user) => {
+  const firstName = user.firstName;
+  const lastName = user.lastName;
+
+  return `${firstName} ${lastName}`;
+};
+
+//good
+const getFullName = (user) => {
+  const { firstName, lastName } = user;
+  return `${firstName} ${lastName}`;
+};
+```
+
+## Destructuring Array
+
+```js filename="arraySpread.js"
+const arr = [1, 2, 3, 4];
+
+// bad
+const first = arr[0];
+const second = arr[1];
+
+// good
+const [first, second] = arr;
+```
+
+## Return object
+
+Gunkan object destructuring untuk return object, bukan array destructuring.
+
+```js filename="arraySpread.js"
+// bad
+const processInput = (input) => {
+  // then a miracle occurs
+  return [left, right, top, bottom];
+};
+
+// the caller needs to think about the order of return data
+const [left, __, top] = processInput(input);
+
+// good
+const processInput = (input) => {
+  // then a miracle occurs
+  return { left, right, top, bottom };
+};
+
+// the caller selects only the data they need
+const { left, top } = processInput(input);
+```

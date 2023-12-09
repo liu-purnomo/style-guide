@@ -1,0 +1,158 @@
+# Array
+
+Array adalah tipe data yang berisikan kumpulan data yang memiliki tipe data yang sama. Array memiliki index yang dimulai dari 0. 
+
+import { Callout } from "nextra-theme-docs"
+
+## Deklarasi
+
+Gunakan kurung siku `[]` untuk mendeklarasikan array. Hindari penggunaan `new Array()` untuk membuat array. [`no-array-constructor`](https://eslint.org/docs/rules/no-array-constructor)
+
+```js filename="arrayDeclaration.js"
+// bad
+const items = new Array();
+
+// good
+const items = [];
+```
+
+<Callout type="error" emoji="💡">
+  `Note` : Gunakan plural untuk nama array.
+</Callout>
+
+## Array `push()`
+
+Daripada langsung mengakses index array dan mengubahnya, lebih baik menggunakan method `push()` untuk menambahkan nilai baru ke dalam array.
+
+Reference MDN : [Array Push()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push)
+
+```js filename="arrayPush.js"
+const items = [];
+
+// bad
+items[items.length] = 'a';
+
+// good
+items.push('a');
+```
+
+## Copy Array
+
+Gunakan Spread operator `...` untuk menggabungkan array atau meng-copy array.
+
+Reference MDN : [Spread Operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax)
+
+```js filename="arraySpread.js"
+// bad
+const len = items.length;
+const itemsCopy = [];
+let i;
+
+for (i = 0; i < len; i += 1) {
+itemsCopy[i] = items[i];
+}
+
+// good
+const itemsCopy = [...items];
+```
+
+## Konversi `Array-Like` menjadi `Array`
+
+Gunakan Spread operator `...` untuk mengkonversi data yang mirip array menjadi array.
+
+```js filename="arraySpread.js"
+const arrLike = { 0: 'foo', 1: 'bar', 2: 'baz', length: 3 };
+
+// bad
+const arr = Array.prototype.slice.call(arrLike);
+
+// good
+const arr = Array.from(arrLike);
+```
+
+## `array-callback-return`
+
+Gunakan array method yang mereturn nilai seperti `map()`, `reduce()`, `every()`, `some()`, `filter()`, `find()`, `findIndex()` daripada menggunakan `forEach()`.
+
+Reference eslint : [array-callback-return](https://eslint.org/docs/rules/array-callback-return)
+
+```js filename="arrayMethod.js"
+// good
+[1, 2, 3].map((x) => {
+  const y = x + 1;
+  return x * y;
+});
+
+// good
+[1, 2, 3].map((x) => x + 1);
+
+// bad - no returned value means `acc` becomes undefined after the first iteration
+[[0, 1], [2, 3], [4, 5]].reduce((acc, item, index) => {
+  const flatten = acc.concat(item);
+});
+
+// good
+[[0, 1], [2, 3], [4, 5]].reduce((acc, item, index) => {
+  const flatten = acc.concat(item);
+  return flatten;
+});
+
+// bad
+inbox.filter((msg) => {
+  const { subject, author } = msg;
+  if (subject === 'Mockingbird') {
+    return author === 'Harper Lee';
+  } else {
+    return false;
+  }
+});
+
+// good
+inbox.filter((msg) => {
+  const { subject, author } = msg;
+  if (subject === 'Mockingbird') {
+    return author === 'Harper Lee';
+  }
+
+  return false;
+});
+```
+
+## Tutup array di baris baru
+
+Jika array memiliki lebih dari satu baris, tutup array di baris baru.
+
+```js filename="arrayNewLine.js"
+// bad
+const arr = [
+  [0, 1], [2, 3], [4, 5],
+]; 
+
+const objectInArray = [{
+  id: 1,
+}, {
+  id: 2,
+}]; 
+
+const numberInArray = [
+  1, 2,
+]; 
+
+// good
+const arr = [[0, 1], [2, 3], [4, 5]];
+
+const objectInArray = [
+  {
+    id: 1,
+  },
+  {
+    id: 2,
+  },
+];
+
+const numberInArray = [
+  1,
+  2,
+];
+```
+

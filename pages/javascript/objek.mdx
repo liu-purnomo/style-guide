@@ -1,0 +1,215 @@
+# Objek
+
+Object adalah kumpulan properti, dan properti adalah pasangan key dan value. Key adalah string (atau simbol) dan value bisa apa saja.
+
+## Jangan gunakan `new Object()`
+
+import { Callout } from 'nextra-theme-docs'
+
+<Callout type='info' emoji="💡">
+  `Tip` : Gunakan literal syntax untuk membuat objek.
+</Callout>
+
+Referensi : [`no-new-object`](https://eslint.org/docs/rules/no-new-object)
+
+```js filename="object.js"
+// bad
+const item = new Object();
+
+// good
+const item = {};
+```
+
+## Computed Properties
+
+<Callout type='info' emoji="💡">
+  `Tip` : Gunakan computed property names untuk membuat objek dengan nama properti dinamis.
+</Callout>
+
+Kenapa? Karena memungkinkan Anda untuk mendefinisikan semua properti objek dalam satu tempat.
+
+```js filename="computedProperties.js"
+
+const getKey = (k) => {
+  return `a key named ${k}`;
+}
+
+// bad
+const obj = {
+  id: 5,
+  name: 'San Francisco',
+};
+obj[getKey('enabled')] = true;
+
+// good
+const obj = {
+  id: 5,
+  name: 'San Francisco',
+  [getKey('enabled')]: true,
+};
+```
+
+## Object Shorthand
+
+<Callout type='info' emoji="💡">
+  `Tip` : Gunakan shorthand untuk membuat objek.
+</Callout>
+
+Referensi : [`object-shorthand`](https://eslint.org/docs/rules/object-shorthand)
+
+```js filename="objectShorthand.js"
+// bad
+const atom = {
+  value: 1,
+
+  addValue: function (value) {
+    return atom.value + value;
+  },
+};
+
+// good
+const atom = {
+  value: 1,
+
+  addValue(value) {
+    return atom.value + value;
+  },
+};
+```
+
+## Object Concise
+
+<Callout type='info' emoji="💡">
+  `Tip` : Gunakan property value shorthand.
+</Callout>
+
+> Kenapa? Karena lebih pendek dan deskriptif.
+
+```js filename="objectConcise.js"
+const liuPurnomo = 'Liu Purnomo';
+
+// bad
+const obj = {
+  liuPurnomo: liuPurnomo,
+};
+
+// good
+const obj = {
+  liuPurnomo,
+};
+```
+
+## Object Group
+
+<Callout type='info' emoji="💡">
+  `Tip` : Kumpulkan semua shorthand properties taruh di awal deklarasi objek Anda.
+</Callout>
+
+```js {8, 11, 16, 17} filename="objectGroup.js"
+const anakinSkywalker = 'Anakin Skywalker';
+const lukeSkywalker = 'Luke Skywalker';
+
+// bad
+const obj = {
+  episodeOne: 1,
+  twoJediWalkIntoACantina: 2,
+  lukeSkywalker,
+  episodeThree: 3,
+  mayTheFourth: 4,
+  anakinSkywalker,
+};
+
+// good
+const obj = {
+  lukeSkywalker,
+  anakinSkywalker,
+  episodeOne: 1,
+  twoJediWalkIntoACantina: 2,
+  episodeThree: 3,
+  mayTheFourth: 4,
+};
+```
+
+## Qouted Properties
+
+<Callout type='info' emoji="💡">
+  `Tip` : Hanya kutip properti yang tidak valid.
+</Callout>
+
+Referensi : [`quote-props`](https://eslint.org/docs/rules/quote-props)
+
+> Kenapa? Secara umum akan lebih mudah dibaca. Ini meningkatkan penyorotan sintaks, dan juga lebih mudah dioptimalkan oleh banyak mesin JS.
+
+```js filename="quotedProperties.js"
+  // bad
+  const bad = {
+    'foo': 3,
+    'bar': 4,
+    'data-blah': 5,
+  };
+
+  // good
+  const good = {
+    foo: 3,
+    bar: 4,
+    'data-blah': 5,
+  };
+```
+
+## Object prototype
+
+<Callout type='warning' emoji="💡">
+  `Tip` : Jangan panggil metode `Object.prototype` secara langsung, seperti `hasOwnProperty`, `propertyIsEnumerable`, dan `isPrototypeOf`.
+</Callout>
+
+Referensi : [`no-prototype-builtins`](https://eslint.org/docs/rules/no-prototype-builtins)
+
+> Kenapa? Metode ini mungkin disamarkan oleh properti pada objek yang dimaksud - pertimbangkan `{ hasOwnProperty: false }` - atau, objek mungkin menjadi objek nol (`Object.create(null)`). Di browser modern yang mendukung ES2022, atau dengan polyfill seperti `<https://npmjs.com/object.hasown>`, `Object.hasOwn` juga dapat digunakan sebagai alternatif untuk `Object.prototype.hasOwnProperty.call`.
+
+```js filename="objectPrototype.js"
+// bad
+console.log(object.hasOwnProperty(key));
+
+// good
+console.log(Object.prototype.hasOwnProperty.call(object, key));
+
+// better
+const has = Object.prototype.hasOwnProperty; // cache the lookup once, in module scope.
+console.log(has.call(object, key));
+
+// best
+console.log(Object.hasOwn(object, key)); // only supported in browsers that support ES2022
+
+/* or */
+import has from 'has'; // https://www.npmjs.com/package/has
+console.log(has(object, key));
+/* or */
+console.log(Object.hasOwn(object, key)); // https://www.npmjs.com/package/object.hasown
+```
+
+## Object Rest Spread
+
+<Callout>
+Ini menggabungkan semua properti dari objek sumber ke objek target yang ditentukan.
+</Callout>
+
+Referensi : 
+  - [`Object.assign`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
+  - [`prefer-object-spread`](https://eslint.org/docs/rules/prefer-object-spread)
+
+```js filename="objectRestSpread.js"
+// very bad
+const original = { a: 1, b: 2 };
+const copy = Object.assign(original, { c: 3 }); // this mutates `original` ಠ_ಠ
+delete copy.a; // so does this
+
+// bad
+const original = { a: 1, b: 2 };
+const copy = Object.assign({}, original, { c: 3 }); // copy => { a: 1, b: 2, c: 3 }
+
+// good
+const original = { a: 1, b: 2 };
+const copy = { ...original, c: 3 }; // copy => { a: 1, b: 2, c: 3 }
+
+const { a, ...noA } = copy; // noA => { b: 2, c: 3 }
+```

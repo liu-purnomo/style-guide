@@ -1,4 +1,9 @@
 {
-    "types": "Tipe Data"
+    "types": "Tipe Data",
+    "deklarasi" : "Deklarasi Variable",
+    "string" : "String",
+    "objek" : "Objek",
+    "array" : "Array",
+    "destructuring" : "Destructuring"
 }
   
