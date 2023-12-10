@@ -4,6 +4,7 @@
     "string" : "String",
     "objek" : "Objek",
     "array" : "Array",
-    "destructuring" : "Destructuring"
+    "destructuring" : "Destructuring",
+    "function" : "Function"
 }
   

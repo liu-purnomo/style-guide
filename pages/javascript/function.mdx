@@ -1,0 +1,116 @@
+# Function
+
+## Utamakan `arrow function` untuk function
+
+import { Callout } from 'nextra-theme-docs'
+
+<Callout>
+  Gunakan `arrow function` untuk mendeklarasikan function
+</Callout>
+
+```js filename="functions.js"
+// bad
+function foo() {
+  // ...
+}
+
+// bad
+const foo = function () {
+  // ...
+};
+
+
+// good
+// lexical name distinguished from the variable-referenced invocation(s)
+const short = function longUniqueMoreDescriptiveLexicalFoo() {
+  // ...
+};
+
+// better
+const getFooAge = () => {
+  // ...
+}
+```
+
+## Gunakan `default parameter`
+
+<Callout>
+  Gunakan `default parameter` daripada `short circuiting` atau `ternary`
+</Callout>
+
+```js filename="functions.js"
+// bad
+const foo = (optionalArg) => {
+  const arg = optionalArg || 'default value'
+  // ...
+}
+
+// good
+const foo = (optionalArg = 'default value') => {
+  // ...
+}
+```
+
+<Callout>
+  Selalu tempatkan `default parameter` di akhir parameter
+</Callout>
+
+```js filename="functions.js"
+// bad
+const foo = (arg1, arg2 = 'default value', arg3) => {
+  // ...
+}
+
+// good
+const foo = (arg1, arg3, arg2 = 'default value') => {
+  // ...
+}
+```
+
+## Jangan gunakan `arguments`
+
+<Callout>
+  Gunakan `rest syntax` daripada `arguments`
+</Callout>
+
+Referensi : [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments)
+
+```js filename="functions.js"
+// bad
+const foo = (...arguments) => {
+  return arguments
+}
+
+// good
+const foo = (...args) => {
+  return args
+}
+```
+
+## Hindari `side effects` di function
+
+<Callout>
+  Hindari `side effects` di function
+</Callout>
+
+```js filename="functions.js"
+// bad
+const foo = (items) => {
+  items.forEach((item) => {
+    doSomething(item)
+    doSomethingElse(item)
+  })
+}
+
+// good
+const foo = (items) => {
+  items.forEach((item) => {
+    doSomething(item)
+  })
+
+  items.forEach((item) => {
+    doSomethingElse(item)
+  })
+}
+```
+
