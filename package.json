@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "description": "Style guide saya pribadi untuk memudahkan dalam menulis kode sehingga lebih rapi dan punya gaya penulisan yang konsisten",
   "scripts": {
-    "dev": "next dev",
-    "dev:mac": "PORT=8080 next dev",
+    "dev": "next dev -p 8000",
     "build": "next build",
     "start": "next start"
   },
